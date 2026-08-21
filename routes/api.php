@@ -15,6 +15,10 @@ Route::prefix('auth')->group(function () {
     });
 });
 
-Route::prefix('programs')->middleware('auth:api')->group(function () {
-        Route::get('/request_urls', [ProgramController::class, ' create']);
-    });
+Route::middleware('auth:api')->group(function () {
+    Route::post('/program', [ProgramController::class, 'create'])->middleware('trainer');
+    Route::post('/program/create', [ProgramController::class, 'create'])->middleware('trainer');
+    Route::get('/program', [ProgramController::class, 'read'])->middleware('trainer');
+    Route::delete('/program/delete', [ProgramController::class, 'delete'])->middleware('trainer');
+    Route::post('/program/update', [ProgramController::class, 'update'])->middleware('trainer'); // patch or put is sending empty json from postman
+});
