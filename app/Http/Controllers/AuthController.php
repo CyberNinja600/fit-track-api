@@ -47,7 +47,7 @@ class AuthController extends Controller
         return $this->tokenResponse($token, auth('api')->user());
     }
 
-    public function me(): JsonResponse
+    public function user(): JsonResponse
     {
         return response()->json(['data' => $this->userPayload($this->jwtGuard()->user())]);
     }
